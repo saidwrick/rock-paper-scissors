@@ -24,24 +24,45 @@ function playerChoose(){
 
 function compare(player, computer){
 
+    let display = document.querySelector(".round-winner-display");
+
     if (player == computer){
-        console.log("tie!");
+        display.innerHTML = "tie!";
         return "tie";
     }
     else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper")){
-        console.log(`you win! ${player} beats ${computer}!`);
-        return "player";
+        if (playerScore < 4){
+            display.innerHTML = `you win! ${player} beats ${computer}!`;
+            playerScore += 1;
+            playerDisplay.innerHTML = playerScore;
+        }
+        else{
+            display.innerHTML = "you won!"
+            playerScore = 0;
+            computerScore = 0;
+            playerDisplay.innerHTML = playerScore;
+            computerDisplay.innerHTML = computerScore;
+        }
     }
     else {
-        console.log(`you lose! ${computer} beats ${player}`);
-        return "computer";
+        if (computerScore < 4){
+            display.innerHTML = `you lose! ${computer} beats ${player}`;
+            computerScore +=1;
+            computerDisplay.innerHTML = computerScore;
+        }
+        else{
+            display.innerHTML = "you lost!"
+            playerScore = 0;
+            computerScore = 0;
+            playerDisplay.innerHTML = playerScore;
+            computerDisplay.innerHTML = computerScore;
+        }
     }
 
 }
 
-function playRound(){
+function playRound(player){
     let computer = computerRandom()
-    let player = playerChoose()
     let result = compare(player, computer);
 
     return result;
@@ -78,4 +99,15 @@ function game(rounds=5){
     }
 }
 
+let playerScore = 0;
+let computerScore = 0;
+let playerDisplay = document.querySelector(".score.player");
+let computerDisplay = document.querySelector(".score.computer");
 
+
+const buttons = document.querySelectorAll("img");
+
+buttons.forEach((e) => {
+    e.addEventListener('click', function(){
+        playRound(e.className);})
+    });
