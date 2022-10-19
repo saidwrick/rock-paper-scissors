@@ -109,5 +109,10 @@ const buttons = document.querySelectorAll("img");
 
 buttons.forEach((e) => {
     e.addEventListener('click', function(){
-        playRound(e.className);})
-    });
+        playRound(e.className);
+    })
+});
+
+game();
+
+
